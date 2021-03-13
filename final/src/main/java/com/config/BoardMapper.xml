@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardMapper">   
+  
+	<select id="boardList" parameterType="hashmap" resultType="BoardDTO">
+		select num, author, title, content, to_char(writeday,'yyyy/mm/dd')writeday,readcnt 
+		from board
+		<if test="searchName=='title'">where title LIKE '%'||#{searchValue}||'%'</if>
+		<if test="searchName=='author'">where author LIKE '%'||#{searchValue}||'%'</if>
+		order by num desc
+	</select>
+	
+	<insert id="boardWrite" parameterType="BoardDTO">
+		insert into board(num, title, author, content)
+		values (board_seq.nextval,#{title}, #{author}, #{content})
+	
+	</insert>
+	
+	<select id="boardRetrieve" parameterType="int" resultType="BoardDTO">
+		select num, author, title, content, to_char(writeday, 'yyyy/mm/dd')writeday, readcnt
+		from board
+		where num = #{num}
+	</select>
+	
+	<update id="readcnt" parameterType="int" >
+		update board 
+		set readcnt = readcnt + 1 
+		where num = #{num}
+	</update>
+	
+	<update id="boardUpade" parameterType="BoardDTO">
+		update board 
+		set num = #{num}, author = #{author}, title = #{title}, content = #{content}
+		where num = #{num}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		delete from board
+		where num = #{num}
+	</delete>
+	
+	<!-- 게시글답글 -->
+	<select id="boardReply" parameterType="int" resultType="BoardReplyDTO">
+      select author, content, to_char(writeday,'yyyy-mm-dd hh:mi:ss')writeday
+      from boardreply
+      where contentNum = #{num}
+   </select>
+	
+	<!--  댓글달기 -->
+	<insert id="replyWrite" parameterType="BoardReplyDTO">
+		insert into boardreply(contentNum, author, content, writeday)
+		values (#{contentNum}, #{author}, #{content}, sysdate)
+	</insert>
+	
+	<!-- 댓글삭제 -->
+	<delete id="replyDelete" parameterType="int">
+	delete from boardreply  
+	where contentNum=#{contentNum}
+	</delete>
+	
+	<!-- 댓글수정 -->
+	<update id="replyUpdate" parameterType="int">
+	update boardreply set author=#{author}, content=#{content}, 
+	where contentNum=#{contentNum}
+	</update>
+	
+</mapper>

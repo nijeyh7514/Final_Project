@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+#container{
+	margin: 0 auto;
+    max-width: 768px;
+    min-width: 460px;
+}
+
+#section{
+     width: 100%; 
+}
+
+h3, h2{/* h2회원가입 */
+	text-align: center;
+}
+
+#content p{
+	text-align: left;	
+	display: flex;
+	flex-wrap:nowrap;
+}
+
+.Btn > input{
+	color:#fff;
+	font-size: 15px;
+	border: none;
+	background: #8e44ad;
+	
+	margin: 5px;
+	border-radius: 5px;
+	
+}
+
+/* .btnLogin{
+	color:#fff;
+	font-size: 15px;
+	border: none;
+	background: #8e44ad;
+	padding: 10px;
+	margin: 5px;
+	border-radius: 5px;
+	
+} */
+
+
+#content{
+	width: 100%;
+    text-align: center;
+   	
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#content input{
+	    font-size: 14px;
+    vertical-align: top;
+    width: 400px;
+    margin: 5px 0;
+    height: 30px;
+}
+
+.Form,
+.Btn{
+	display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 5px;	
+}
+
+.addressbtn{
+	width: 100px;
+}
+
+.phoneBox{
+	padding: 10px;
+	width: 100px;
+}
+
+#logo{
+	
+	display: block;
+	margin: 0px auto;
+}
+
+
+.idSearch{
+	width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.idSearch input{
+	    font-size: 14px;
+    vertical-align: top;
+    width: 400px;
+    margin: 5px 0;
+    height: 30px;
+}
+

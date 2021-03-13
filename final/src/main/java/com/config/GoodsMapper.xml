@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodsMapper">
+
+<!--상품정보 자세히보기(상품코드)-->
+    <select id="goodsRetrieve" resultType="GoodsDTO" parameterType="string">
+	select gCode,gCategory,gName,gContent,gPrice,gImage
+	from goods
+	where gCode= #{gCode}
+	</select>
+	
+<!--메인상품목록보기-->	
+	<select id="goodsList" resultType="GoodsDTO" parameterType="hashmap">
+	select gCode,gCategory,gName,gContent,gPrice,gImage
+	from goods
+	where gCategory= #{gCategory}
+		<choose>
+			<when test="gUCategory != 'all'">
+				and gUCategory = #{gUCategory}
+			</when>
+		</choose>
+		
+	</select>
+	
+<!--상품 검색(상품명, 상품설명) -->
+  	<select id="totalCount" resultType="int" parameterType="hashmap">
+  	select count(*)
+  	from goods
+  	<where>
+			<if test="searchName == 'gName'">
+				upper(gName) like upper('%'||#{searchValue}||'%')
+			</if>
+			<if test="searchName == 'gContent'">
+				upper(gContent) like upper('%'||#{searchValue}||'%')
+			</if>
+		</where>		
+		order by gCode desc
+  	
+  	</select>
+	
+	<!-- 상품명, 상품내용으로 검색 -->
+	<select id="search" parameterType="hashmap" resultType="GoodsDTO">
+		select gCode, gCategory, gName, gContent, gPrice, gImage
+		from goods
+		<where>
+			<if test="searchName == 'gName'">
+				upper(gName) like upper('%'||#{searchValue}||'%')
+			</if>
+			<if test="searchName == 'gContent'">
+				upper(gContent) like upper('%'||#{searchValue}||'%')
+			</if>
+		</where>
+		
+		order by gCode desc
+	</select>
+	
+	<!-- 카테고리 선택하고 원하는 가격 상품 검색 -->
+	<select id="searchPC" parameterType="hashmap" resultType="GoodsDTO">
+	select gCode, gCategory, gName, gContent, gPrice, gImage
+	from goods
+	where
+	<if test="searchPrice1 != 'undefined' or searchPrice2 != 'undefined'">
+	(
+	<![CDATA[
+		gPrice >= TO_NUMBER(#{searchPrice1}) and gPrice <= TO_NUMBER(#{searchPrice2})
+	]]>
+	)
+	AND
+	</if>
+	
+	<if test="gCategory1 != 'undefined' or gCategory2 != 'undefined' or 
+	gCategory3 != 'undefined' or gCategory4 != 'undefined'">
+	(
+		gCategory = #{gCategory1}
+		or gCategory = #{gCategory2}
+		or gCategory = #{gCategory3}
+		or gCategory = #{gCategory4}
+	) AND
+	</if>
+	1=1 <!--동적 쿼리문을 작성 시 첫번째 조건 WHERE 구문에 어떤 조건이 해당될지 불명확할 때는
+WHERE 조건줄을 1=1로 작성 후 조건에 맞는 if문에 해당되면 조건이 만들어 진다.  -->
+	</select>
+	
+	
+</mapper>

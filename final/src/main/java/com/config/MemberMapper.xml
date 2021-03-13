@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+
+<!--회원가입 -->
+	<insert id="memberAdd" parameterType="MemberDTO">
+	insert into member(userid,passwd,username,post,addr1,addr2,
+					   phone1,phone2,phone3,email1,email2)
+	values( #{userid},#{passwd},#{username},#{post},#{addr1},#{addr2},
+	        #{phone1},#{phone2},#{phone3},#{email1},#{email2})	
+	</insert>
+
+<!-- 회원가입 시 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*)
+		from member
+		where userid =#{userid}
+	</select>
+
+<!-- 로그인(아이디로 비밀번호 검사) -->
+<!--userid와 passwd를  한번에 가져왔을 경우에는
+ 둘 중하나가 틀렸을 경우 dto가 null이 되는데, 어떤 것이 틀렸는 지 알 수가 없다. -->
+	<select id="login" parameterType="String" 
+	resultType="MemberDTO">
+	 select userid,passwd,username,post,addr1,addr2,
+					   phone1,phone2,phone3,email1,email2
+	 from member
+	 where userid =#{userid} 
+	</select>
+
+<!-- 마이페이지 비밀번호재확인 및 이동 -->
+ <select id="mypage" parameterType="MemberDTO"
+	resultType="MemberDTO">
+	 select userid,passwd,username,post,addr1,addr2,
+					   phone1,phone2,phone3,email1,email2
+	 from member
+	 where userid =#{userid} 
+	 and passwd= #{passwd}
+	</select>
+		
+<!-- 마이페이지에서 정보수정 -->	
+ <update id="memberUpdate" parameterType="MemberDTO">
+ 	update member
+ 	set  post=#{post},
+ 	  username=#{username},
+ 	  addr1=#{addr1},
+ 	  addr2=#{addr2},
+ 	  phone1=#{phone1},
+ 	  phone2=#{phone2},
+ 	  phone3=#{phone3},
+ 	  email1=#{email1},
+ 	  email2=#{email2}
+ 	where userid=#{userid}
+ 	
+ </update>
+</mapper>
