@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#container{
+#container{ </*게시판  */
 	margin: 0 auto;
     max-width: 768px;
     min-width: 460px;
