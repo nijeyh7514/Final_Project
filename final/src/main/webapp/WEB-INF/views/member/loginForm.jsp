@@ -32,11 +32,11 @@ $(function() {
 		}//else if */
 	});//function
 </script>
-<c:if test="${!empty mesg }">
+ <c:if test="${!empty mesg }">
 	<script>
 		alert('${mesg}');
 	</script>
-</c:if>
+</c:if> 
 <div id="section">
 	<h3>로그인</h3>
 	<div id="content">

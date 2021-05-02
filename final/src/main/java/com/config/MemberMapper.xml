@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberMapper">
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 where userid =#{userid} 
 	</select>
 
-<!-- 마이페이지 비밀번호재확인 및 이동 -->
+<!-- '마이페이지' 회원 로그인정보 일치여부확인 -->
  <select id="mypage" parameterType="MemberDTO"
 	resultType="MemberDTO">
 	 select userid,passwd,username,post,addr1,addr2,
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 and passwd= #{passwd}
 	</select>
 		
-<!-- 마이페이지에서 정보수정 -->	
+<!-- '마이페이지' 정보수정 -->	
  <update id="memberUpdate" parameterType="MemberDTO">
  	update member
  	set  post=#{post},
@@ -52,7 +52,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	  phone3=#{phone3},
  	  email1=#{email1},
  	  email2=#{email2}
- 	where userid=#{userid}
- 	
+ 	where userid=#{userid}	
  </update>
 </mapper>

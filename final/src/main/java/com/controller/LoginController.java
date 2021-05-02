@@ -18,11 +18,13 @@ public class LoginController {
 
 	// 로그인시 아이디의 비밀번호 일치여부 
 	@RequestMapping(value = "/login")
-	public String login(@RequestParam(value="login_seq", required=false) Model model, HttpSession session, String passwd, String userid) {
+	public String login(@RequestParam(value="login_seq", required=false) Model model, HttpSession session, String passwd, String userid) 
+		{
 		MemberDTO dto = service.login(userid);
-		if (dto != null) {
+		if (dto != null) {//dto에 아이디가 저장되어있을 경우
 			if (!passwd.equals(dto.getPasswd())) {// (!=와 equals의 차이점 알아보기!
-				model.addAttribute("mesg", "비밀번호가 일치하지 않습니다.");// 입력값 없이 로그인버튼을 눌렀을 경우
+				System.out.println("dto의 비번값과 일치하지 않음");
+				/*model.addAttribute("mesg", "비밀번호가 일치하지 않습니다");*/ //이거 NPE 이유모름, 외얺되?
 				System.out.println("로그인안됨");
 			} else {
 				session.setAttribute("login", dto);

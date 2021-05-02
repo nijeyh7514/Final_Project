@@ -7,7 +7,6 @@
 <title>마이페이지</title>
 </head>
 <body>
-
 <jsp:include page="common/top.jsp" flush="true"></jsp:include><BR>
 <jsp:include page="common/menu.jsp" flush="true"></jsp:include>
 <hr>

@@ -18,7 +18,8 @@ public class MemberDTO {
 	private String email2;
 	public MemberDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+		
+		System.out.println("회원가입 ==MemberDTO");
 	}
 	public MemberDTO(String userid, String passwd, String username, String post, String addr1, String addr2,
 			String phone1, String phone2, String phone3, String email1, String email2) {
@@ -107,5 +108,5 @@ public class MemberDTO {
 				+ ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone1=" + phone1 + ", phone2=" + phone2 + ", phone3="
 				+ phone3 + ", email1=" + email1 + ", email2=" + email2 + "]";
 	}
-	
+ 
 }

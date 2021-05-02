@@ -16,21 +16,25 @@ public class BoardService {
 
 	@Autowired
 	BoardDAO BoardDAO;
-
+	
+//게시판리스트보이기
 	public List<BoardDTO> boardList(HashMap<String, String> map) {
 		List<BoardDTO> boardList = BoardDAO.boardList(map);
+		System.out.println("게시판리스트보이기Service====>BoardDAO.boardLsit()호출"+boardList);
 		return boardList;
 	}
 
+//게시판글쓰기
+	public void boardWrite(BoardDTO bDTO) {
+		BoardDAO.boardWrite(bDTO);
+		System.out.println("게시판글쓰기BoardService===>BoardDAO호출");
+	}
 	public BoardDTO boardRetrieve(String num) {
 		BoardDTO boardDTO = BoardDAO.boardRetrieve(num);
 		return boardDTO;
 	}
 
-	public void boardWrite(BoardDTO bDTO) {
-		BoardDAO.boardWrite(bDTO);
-		
-	}
+	
 
 	public void boardUpdate(BoardDTO bDTO) {
 		BoardDAO.boardUpdate(bDTO);

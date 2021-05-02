@@ -17,12 +17,19 @@ public class MemberSerivce {
 			return dto;
 		}
 	//회원가입
-	public void memberAdd(MemberDTO m) {
-		dao.memberAdd(m);		
+	public void memberAdd(MemberDTO m) {	
+		System.out.println("MemberService==="+m);
+		dao.memberAdd(m);
+		System.out.println("회원가입==memberService에서 DAO호출");
+		System.out.println("dao.memberAdd==="+m);
+		
 	}
 	//회원가입시 아이디체크
 	public int idCheck(String userid) {
+		System.out.println("MemberService==="+userid);
 		int dto = dao.idCheck(userid);
+		System.out.println("아이디중복체크==memberService에서 DAO호출");
+		System.out.println("MemberService==="+dto);
 		return dto;
 	}
 	//마이페이지
