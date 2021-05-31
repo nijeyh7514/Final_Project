@@ -5,13 +5,13 @@ import org.apache.ibatis.type.Alias;
 @Alias("CartDTO")
 	public class CartDTO {
 
-	private int num;
+	private int num; //장바구니에 담긴 상품순서 번호 
 	private String userid;
 	private String gCode;
 	private String gName;
 	private int gPrice;
-	private String gSize;
-	private String gColor;
+	/*private String gSize;
+	private String gColor;*/
 	private int gAmount;
 	private String gImage;
 	public CartDTO() {
@@ -26,8 +26,8 @@ import org.apache.ibatis.type.Alias;
 		this.gCode = gCode;
 		this.gName = gName;
 		this.gPrice = gPrice;
-		this.gSize = gSize;
-		this.gColor = gColor;
+		/*this.gSize = gSize;
+		this.gColor = gColor;*/
 		this.gAmount = gAmount;
 		this.gImage = gImage;
 	}
@@ -61,7 +61,7 @@ import org.apache.ibatis.type.Alias;
 	public void setgPrice(int gPrice) {
 		this.gPrice = gPrice;
 	}
-	public String getgSize() {
+	/*public String getgSize() {
 		return gSize;
 	}
 	public void setgSize(String gSize) {
@@ -72,7 +72,7 @@ import org.apache.ibatis.type.Alias;
 	}
 	public void setgColor(String gColor) {
 		this.gColor = gColor;
-	}
+	}*/
 	public int getgAmount() {
 		return gAmount;
 	}
@@ -88,10 +88,8 @@ import org.apache.ibatis.type.Alias;
 	@Override
 	public String toString() {
 		return "CartDTO [num=" + num + ", userid=" + userid + ", gCode=" + gCode + ", gName=" + gName + ", gPrice="
-				+ gPrice + ", gSize=" + gSize + ", gColor=" + gColor + ", gAmount=" + gAmount + ", gImage=" + gImage
+				+ gPrice +/* ", gSize=" +  + ", gColor=" + gColor*/ ", gAmount=" + gAmount + ", gImage=" + gImage
 				+ "]";
-	}
-	
-		
+	}		
 	}
 

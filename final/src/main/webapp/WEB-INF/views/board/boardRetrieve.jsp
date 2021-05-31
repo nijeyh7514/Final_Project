@@ -39,7 +39,7 @@ $(function(){
 <body>
 <div class="container">
 <h1>고객센터</h1>
-<form name="myForm" action="BoardReplyServlet">
+<form name="myForm" action="boardRetrieve">
 <input type="hidden" name="num" value="${boardRetrieve.num}">
 글번호:${boardRetrieve.num}&nbsp;작성일:${boardRetrieve.writeday}
 조회수:${boardRetrieve.readcnt}<br>

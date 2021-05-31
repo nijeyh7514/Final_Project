@@ -96,7 +96,7 @@
 						
 						<td class="td_default" align="center" width="110">${cDTO.gPrice}
 						</td>
-						<td class="td_default" align="center" width="90">${cDTO.gAmount}</td>
+						<td class="td_default" align="center" width="90">${cDTO.gAmount}</td> <!--cDTO에 담긴수량 -->
 
 					</tr>
 

@@ -7,6 +7,8 @@
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">   
 
+
+//경고창 
 	//email 작성 안할 시 메세지 알림창 출력
 	$(document).ready(function(){
 		
@@ -15,33 +17,33 @@
 			 var email2 = $("#email2").val();
 			 if(email1.length==0 || email2.length==0){
 				 event.preventDefault();
-			 	alert("email 확인");
+			 	alert("이메일을 입력해주세요");
 			 }
 		 });
 	//userid, passwd 작성 안할 시 메세지 알림창 출력, 이벤트 무효
 	 $("form").on("submit", function(event){
-		 var userid = $("#userid").val();
+		 var userid = $("#username").val();
 		 var passwd = $("#passwd").val();
 		 	if(userid.length==0){
-		 		alert("userid 필수");
+		 		alert("이름을 입력해주세요");
 		 		$("#userid").focus();
 		 		event.preventDefault();
 		 	}else if(passwd.length==0){
-		 		alert("passwd 필수");
+		 		alert("비밀번호를 입력해주세요");
 		 		$("#passwd").focus();
 		 		event.preventDefault();
 		 	}
 	 });
 	
 	//비번확인
-	 $("#passwd2").on("keyup",function(){
+	/*  $("#passwd2").on("keyup",function(){
 			var passwd = $("#passwd").val();
 			var mesg = "비번 불일치";
 			if(passwd == $(this).val()){
 				mesg = "비번 일치";
 			}
 			$("#result2").text(mesg);
-		});
+		}); */
 		
 	//이메일 선택
 	 $("#emailSelect").on("change",function(){
@@ -57,9 +59,12 @@
 <form action="loginCheck/memberUpdate" method="get">
 <input type="hidden" name="userid" value="${login.userid }">
 *아이디:${login.userid }
+
 <span id="result"></span><br><br>
+비밀번호<br><input type="text" name="passwd" value="${login.passwd}"><br>
 이름<br><input type="text" name="username" value="${login.username }"><br> 
-<input type="text" value="${login.post }"name="post" id="sample4_postcode" placeholder="우편번호"><br>
+
+주소<br><input type="text" value="${login.post }"name="post" id="sample4_postcode" placeholder="우편번호"><br>
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 <input type="text" value="${login.addr1 }" name="addr1" id="sample4_roadAddress" placeholder="도로명주소"><br>
 <input type="text" value="${login.addr2 }" name="addr2" id="sample4_jibunAddress" placeholder="지번주소"><br>

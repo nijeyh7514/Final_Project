@@ -8,11 +8,11 @@
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <script>
 
-	//글목록으로 돌아가기
+	//게시판목록으로 돌아가기
 	$(function(){
 		$("#btnList").on('click',function(e){
 			e.preventDefault();
-			location.href="boardList";
+			location.href="boardListT";
 		});
 	});
 	
@@ -25,11 +25,14 @@
 <body>
 <div class="container">
 <h1>게시판글쓰기</h1>
-<form action="loginCheck/boardWrite" method="post">
-제목:<input type="text" name="title" class="form-control"><br>
-작성자:<input type="text" name="author"  class="form-control"><br>
-내용:<textarea rows="10" cols="10" name="content"  class="form-control"></textarea>
-<input type="submit" value="저장" class="btn btn-sm btn-primary">
+<form action="boardWrite" method="get">
+제목:<input type="text" name="title" class="form-control">
+<br>
+작성자:<input type="text" name="author"  class="form-control">
+<br>
+내용:<textarea rows="10" cols="10" name="content"  class="form-control">
+</textarea>
+<input type="submit" value="글올리기" class="btn btn-sm btn-primary">
 <input type="button" class="btn btn-sm btn-primary" id="btnList" value="목록">
 </form>
 </div>

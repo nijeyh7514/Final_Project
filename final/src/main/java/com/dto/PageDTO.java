@@ -50,7 +50,7 @@ public class PageDTO {
 
 	@Override
 	public String toString() {
-		return "PageDTO [list=" + list + ", curPage=" + curPage + ", perPage=" + perPage
+		return "PageDTO/ [list=" + list + ", curPage=" + curPage + ", perPage=" + perPage
 				+ ", totalCount=" + totalCount + "]";
 	}
 

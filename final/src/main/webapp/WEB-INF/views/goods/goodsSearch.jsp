@@ -65,18 +65,19 @@ $(function(){
 });
 
 </script>
-<form>
-<div class="search1">
+<!-- action 호출 controller -->
+	 <form action="searchName" method="get">
+		<div class="search1">
 			<select name="searchName">
 				<option value="gName">상품명</option>
 				<option value="gContent">상품내용</option>
 			</select>
 			<input type="text" name="searchValue" id="searchValue">
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" class="searchBtn1">
 		</div>
-		</form>
-	
-	<form action="#" class="search2">
+	</form>
+	<br>
+	<form action="searchPrice" class="search2">
 	<label class="checkbox-inline"><input type="checkbox" value="fruits" name="gCategory1">fruits</label>
 		<label class="checkbox-inline"><input type="checkbox" value="seafood" name="gCategory2">seafood</label>
 		<label class="checkbox-inline"><input type="checkbox" value="meat" name="gCategory3">meat</label>

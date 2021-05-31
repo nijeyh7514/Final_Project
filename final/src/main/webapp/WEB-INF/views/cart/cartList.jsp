@@ -16,14 +16,14 @@
 <script type="text/javascript">
 
 	$(function(){
+		//*(장바구니)상품 수량수정버튼
 		totalxxx();
-		//수정버튼
 		$(".updateBtn").on("click",function(){
 			var num = $(this).attr("data-xxx");
 			var gAmount = $("#cartAmount"+num).val();
 			var gPrice = $(this).attr("data-price");
 			$.ajax({
-				url:'CartUpdateServlet',
+				url:"loginCheck/orderConfirm",//서블릿이동
 				type:'get',
 				dataType:'text',
 				data:{
@@ -41,16 +41,16 @@
 			});
 		});
 		
-		//삭제버튼
+		//*(장바구니)상품 삭제버튼
 		$(".delBtn").on("click",function(){
 			var num = $(this).attr("data-num");
 			console.log("카트삭제===="+num);
 			var xxx = $(this);
 			$.ajax({
-				url:"loginCheck/cartDelete",
+				url:"loginCheck/cartDelete", //서블릿이동
 				type: "get",
 				data:{
-					num : num
+					num:num
 				},
 				dataType: "text",
 				success:function(data, status, xhr){
@@ -187,19 +187,24 @@
 
 		<tr>
 			<td class="td_default" width="80">
-			<!-- checkbox는 체크된 값만 서블릿으로 넘어간다. 따라서 value에 삭제할 num값을 설정한다. -->
+			<!-- checkbox는 체크된 값만 서블릿으로 넘어간다. 따라서 value에 삭제할 num(주문번호)값을  클릭한다. -->
 			<input type="checkbox"
-				name="check" id="check81" class="check" value="${x.num}"></td>
+				name="check" id="check81" class="check" value="${x.num}"></td><!--체크된 상품의 주문번호값이 들어간다. -->
+			
+			<!--주문번호-->			
 			<td class="td_default" width="80">${x.num}</td>
-			<td class="td_default" width="80"><img
-				src="images/items/${x.gImage}.jpg" border="0" align="center"
+			<!--상품이미지-->
+			<td class="td_default" width="80">
+			<img src="images/items/${x.gImage}.jpg" border="0" align="center"
 				width="80" height="80"/></td>
+			<!--상품이름-->	
 			<td class="td_default" width="300" style='padding-left: 30px'>
 			${x.gName}
-			
+			<!--상품 판매가-->
 			<td class="td_default" align="center" width="110">
-			${x.gPrice}
+			${x.gPrice}원
 			</td>
+			
 			<td class="td_default" align="center" width="90">
 			<input class="input_default" type="text" name="cartAmount"
 				id="cartAmount${x.num}" style="text-align: right" maxlength="3"
@@ -222,11 +227,17 @@
 			<td><input type="button" class="orderBtn" value="주문" data-num="${x.num}"></td>
 			<td class="td_default" align="center" width="30"
 				style='padding-left: 10px'>
+				
 				<input type="button" value="삭제"
 				 class="delBtn" data-num="${x.num}"></td>
-			<td height="10"></td>
-			
+			<td height="10"></td>			
 		</tr>
+		<tr>
+		<td colspan="10">
+			<hr size="1" color="CCCCCC">
+		</td>
+	</tr>
+		
 	</c:forEach>
 	</form>
 	<tr>

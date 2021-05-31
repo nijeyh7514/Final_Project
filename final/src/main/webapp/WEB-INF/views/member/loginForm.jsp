@@ -32,23 +32,20 @@ $(function() {
 		}//else if */
 	});//function
 </script>
- <c:if test="${!empty mesg }">
-	<script>
-		alert('${mesg}');
-	</script>
-</c:if> 
+ <!--  -->
+ 
 <div id="section">
 	<h3>로그인</h3>
 	<div id="content">
 		<form action="login" method="get">
 		<div class="Form">
 		<!-- id="#" class="." -->
-			<input type="text" id="userid" name="userid" placeholder="아이디를 입력해주세요"><br>
-			<input type="text" id="passwd" name="passwd" placeholder="비밀번호를 입력해주세요"><br>
+			<input type="text" id="userid" name="userid" placeholder="아이디 입력"><br>
+			<input type="text" id="passwd" name="passwd" placeholder="비밀번호 입력"><br>
 			</div>
 			<div class="Btn">
 				<input type="submit" name="submit" value="로그인"><br>
-				<input type="reset" value="취소">
+				<input type="button" value="회원가입" onClick="location.href='memberForm'">
 			</div>
 		</form>
 	</div>

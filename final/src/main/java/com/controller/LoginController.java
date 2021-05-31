@@ -22,9 +22,9 @@ public class LoginController {
 		{
 		MemberDTO dto = service.login(userid);
 		if (dto != null) {//dto에 아이디가 저장되어있을 경우
-			if (!passwd.equals(dto.getPasswd())) {// (!=와 equals의 차이점 알아보기!
+			if (!passwd.equals(dto.getPasswd())) {//비번값이 일치하지 않는 경우 
 				System.out.println("dto의 비번값과 일치하지 않음");
-				/*model.addAttribute("mesg", "비밀번호가 일치하지 않습니다");*/ //이거 NPE 이유모름, 외얺되?
+			/*	model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다"); */
 				System.out.println("로그인안됨");
 			} else {
 				session.setAttribute("login", dto);

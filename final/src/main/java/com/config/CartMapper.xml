@@ -20,12 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where num=#{num}
 	</delete>
 
+<!--장바구니 - 수량변경 (상품번호)-->
 	<update id="cartUpdate" parameterType="hashmap">
 	 update cart
 	 set gAmount= #{gAmount}
 	 where num=#{num}
 	</update>
 	
+<!--장바구니-담기(cDTO) -->	
 	<insert id="cartAdd" parameterType="CartDTO">
 		insert into cart (num,userid,gCode,gPrice
 		       ,gAmount,gName,gImage)
@@ -33,17 +35,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       #{gAmount},#{gName},#{gImage} )
 	</insert>
 	
+<!-- 상세페이지 바로 구매 - 상품코드, 수량-->
+    <insert id="buyNow"  parameterType="CartDTO">
+     	insert into cart (num,userid,gCode,gPrice
+		       ,gAmount,gName,gImage)
+		values( cart_seq.nextval, #{userid},#{gCode},#{gPrice},
+		       #{gAmount},#{gName},#{gImage} )
+    </insert>
+	
+<!--장바구니-목록보기 (userid)-->	
 	<select id="cartList" parameterType="string" resultType="CartDTO">
 	 select num,userid,gCode,gPrice,gAmount,gName,gImage
 	 from cart
 	 where userid=#{userid}
 	</select>
 	
+<!--장바구니-선택한 상품 확인주문페이지로 이동 (num)-->	    
 	<select id="cartByNum" parameterType="int" resultType="CartDTO">
 	 select num,userid,gCode,gPrice,gAmount,gName,gImage
 	 from cart
 	 where num=#{num}
 	</select>
+	
 	
 	<insert id="orderDone" parameterType="OrderDTO">
 	 insert into orderinfo 

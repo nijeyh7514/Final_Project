@@ -58,7 +58,7 @@ public class GoodsController {
 		return mav;
 	}
 	
-	//상품상세보기기능
+	//*(상품상세보기)페이지구현
 	@RequestMapping(value = "/goodsRetrieve") //view가 (.jsp)가 없으므로 주소값이 된다
 	@ModelAttribute("goodsRetrieve")//goodsRetrieve가 키값이 된다.
 	public GoodsDTO goodsRetrieve(@RequestParam("gCode") String gCode) {
@@ -66,17 +66,18 @@ public class GoodsController {
 		return dto;
 	}
 	
-	//장바구니 기능
+	
+	//*(장바구니)상품담기
 	@RequestMapping(value = "/loginCheck/cartAdd")
 	public String cartAdd(CartDTO cDTO, HttpSession session) {
 		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
 		cDTO.setUserid(mDTO.getUserid());
-		session.setAttribute("mesg", cDTO.getgCode());
+		session.setAttribute("mesg", cDTO.getgName());
 		service.cartAdd(cDTO);
 		return "redirect:../goodsRetrieve?gCode="+cDTO.getgCode();
 	}
 	
-	//장바구니목록
+	//*(장바구니)목록 확인페이지
 	@RequestMapping(value = "/loginCheck/cartList")
 	//Redirect시 원하는 값들을 전달하고 싶다면 RedirectAttributes를 사용해서 추가할 수 있다.
 	public String cartList(RedirectAttributes attr, HttpSession session) {
@@ -87,7 +88,7 @@ public class GoodsController {
 		return "redirect:../cartList"; //servlet-context 등록
 	}
 	
-	//장바구니상품삭제
+	//*(장바구니)상품삭제
 	@RequestMapping(value = "/loginCheck/cartDelete")
 	@ResponseBody //스프링에서 비동기 처리를 할 경우에 @Responsebody나 @RequestBody를 사용
 	public void cartDelete(@RequestParam("num") int num) {
@@ -95,29 +96,44 @@ public class GoodsController {
 		service.cartDelete(num);
 	}
 	
-	//상품전체삭제하기
+	//*(장바구니)상품전체삭제하기
 	@RequestMapping(value = "/loginCheck/delAllCart")
 	public String delAllCart(@RequestParam("check") ArrayList<String>list) {
 		service.delAllCart(list);
-		return "redirect:../cartList";
-		
+		return "redirect:../cartList";		
 	}
 	
-	//상품주문확인페이지
+	//*(상세페이지)바로구매 -상품이름(gCode)
+	@RequestMapping(value="/loginCheck/buyNow")
+	public String buyNow(@RequestParam(/*value=*/"gCode"/*, required=false*/) String gCode, @RequestParam("gAmount") int gAmount, 
+			HttpSession session, CartDTO cDTO, RedirectAttributes xxx) {
+		
+		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
+		String userid = mDTO.getUserid(); 
+		cDTO.setUserid(mDTO.getUserid());
+		System.out.println("buyNow/바로구매 유저아이디=="+userid);
+		CartDTO dto = service.buyNow(gCode);
+		System.out.println("buyNow/cDTO/바로구매할 상품==="+cDTO);
+		xxx.addFlashAttribute("mDTO", mDTO); //request에 회원정보저장
+		xxx.addFlashAttribute("cDTO", cDTO); //request에 상세정보 정보저장	
+		return "redirect:../orderConfirm";	
+	}
+	
+	//*(상품주문)확인페이지 -장바구니 상품번호(num)
 	@RequestMapping(value = "/loginCheck/orderConfirm")
 	public String orderConfirm(@RequestParam("num") int num, HttpSession session, RedirectAttributes xxx) {
 		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
 		String userid = mDTO.getUserid();
-		mDTO = mService.myPage(mDTO); //사용자 정보 가져오기
-		CartDTO cDTO = service.orderConfirmByNum(num); //장바구니 정보가져오기
+		mDTO = mService.myPage(mDTO); //사용자 정보 가져오기(마이페이지)
+		CartDTO cDTO = service.orderConfirmByNum(num); //장바구니 정보가져오기(상품순서번호num)
 		xxx.addFlashAttribute("mDTO", mDTO); //request에 회원정보저장
 		xxx.addFlashAttribute("cDTO", cDTO); //request에 카트정보저장
-		return "redirect:../orderConfirm"; //servlet-context에 등록
+		return "redirect:../orderConfirm"; //servlet-context에 등록된 jsp
 		
 	}
 	
 	
-	//상품주문완료
+	//*(상품주문)완료페이지
 	@RequestMapping(value = "/loginCheck/orderDone")
 	public String orderDone(OrderDTO oDTO, int orderNum, HttpSession session, RedirectAttributes xxx) {
 		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
@@ -127,7 +143,7 @@ public class GoodsController {
 		return "redirect:../orderDone";
 	}
 	 	
-	//전체주문확인페이지
+	//*(전체주문)확인페이지
 	@RequestMapping(value = "/loginCheck/orderAllConfirm")
 	public String orderAllConfirm(@RequestParam("check") String [] num, HttpSession session, RedirectAttributes xxx) {
 		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
@@ -140,7 +156,7 @@ public class GoodsController {
 		return "redirect:../orderAllConfirm";
 	}
 	  
-	//전체주문
+	//*(전체주문)완료페이지
 	@RequestMapping(value = "/loginCheck/orderAllDone")
 	public String orderAllDone(OrderDTO oDTO ,@RequestParam("num")String [] orderNums, HttpSession session, RedirectAttributes xxx, HttpServletRequest request) {
 	
@@ -185,7 +201,7 @@ public class GoodsController {
 	}
 	
 	//상품검색기능
-	@RequestMapping(value = "/goodsSearchList")
+	@RequestMapping(value = "/searchName")
 	public String goodsSearch(HttpSession session, HttpServletRequest request) {
 		String curPage = request.getParameter("curPage");
 		if(curPage==null) curPage= "1";
@@ -205,7 +221,7 @@ public class GoodsController {
 	}
 	
 	//카테코리별 가격 검색 기능
-	@RequestMapping(value = "/searchPC") 
+	@RequestMapping(value = "/searchPrice") 
 	public String searchPC(HttpSession session, HttpServletRequest request) {
 		
 		String searchPrice1 = request.getParameter("searchPrice1");
@@ -227,10 +243,9 @@ public class GoodsController {
 		map.put("gCategory4", gCategory4);
 		
 		System.out.println(map);
-		
-		
+			
 		List<GoodsDTO>list = service.searchPC(map);
-		//PageDTO pDTO = service.searchPC(list, Integer.parseInt(curPage));
+	/*	PageDTO pDTO = service.searchPC(list, Integer.parseInt(curPage));*/
 		request.setAttribute("priceCategory", list);
 		return "searchPC";
 	}

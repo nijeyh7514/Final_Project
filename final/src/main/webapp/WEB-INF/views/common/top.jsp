@@ -8,20 +8,19 @@
 <div class="header">
 	<a href="memberForm">회원가입</a>&nbsp;|
 	<a href="loginForm">로그인</a>&nbsp;|
-	<a href="boardList">고객센터</a>&nbsp;
+	<a href="boardListT">고객센터</a>&nbsp;
 </div>
 </c:if>
-
 <c:if test="${!empty login}">
-
 <div class="header">
 	안녕하세요 ${login.username }님
 	<a href="loginCheck/logout">로그아웃</a>&nbsp;|
 	<a href="loginCheck/mypage">마이페이지</a>&nbsp;|
 	<a href="loginCheck/cartList">장바구니</a>&nbsp;|
-	<a href="loginCheck/boardList">고객센터</a>&nbsp;
+	<a href="loginCheck/boardListT">고객센터</a>&nbsp;
 	
-	
+	<!-- jsp주소아님/
+	Controller RequestMapping=(value="/boardListT") -->
 </div>
 </c:if>
 

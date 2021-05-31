@@ -72,7 +72,7 @@ public class MemberController {
 		}
 		return "redirect:../mypageId";// servlet=context에 등록->마이페이지 비밀번호 재확인페이지
 	}*/
-	//mypage기능
+	//mypage열기
 	@RequestMapping(value = "/loginCheck/mypage")
 	public String mypage(@RequestParam Map<String, String> map, HttpSession session) {
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");

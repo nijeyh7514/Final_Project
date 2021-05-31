@@ -13,10 +13,10 @@
 <mvc:resources location="/WEB-INF/views/css/" mapping="/css/**"/>
 <mvc:resources location="/WEB-INF/views/images/" mapping="/images/**"/>
 
-<!-- <mvc:view-controller path="/" view-name="main"/> -->
+<!-- <mvc:view-controller path="/" : 이것도 jsp주소로 맞춤
+ view-name="main" :jsp /> -->
 <mvc:view-controller path="/memberForm" view-name="memberForm"/>
 <mvc:view-controller path="/loginForm" view-name="loginForm"/>
-<mvc:view-controller path="/mypagePw" view-name="mypagePw"/>
 <mvc:view-controller path="/mypage" view-name="mypage"/>
 <mvc:view-controller path="/cartList" view-name="cartList"/>
 <mvc:view-controller path="/orderConfirm" view-name="orderConfirm"/>
@@ -25,21 +25,26 @@
 <mvc:view-controller path="/orderAllDone" view-name="orderAllDone"/>
 <mvc:view-controller path="/boardList" view-name="boardList"/>
 <mvc:view-controller path="/boardRetrieve" view-name="boardRetrieve"/>
-<mvc:view-controller path="/boardWrite" view-name="boardWrite"/>
+<mvc:view-controller path="loginCheck/boardWrite" view-name="boardWrite"/>
 <mvc:view-controller path="/boardReply" view-name="boardReply"/>
+<mvc:view-controller path="/goodsList" view-name="goodsList"/>
+<mvc:view-controller path="/goodsRetrieve" view-name="goodsRetrieve"/>
+<mvc:view-controller path="/goodsSearch" view-name="goodsSearch"/>
 <mvc:view-controller path="/goodsSearchList" view-name="goodsSearchList"/>
-<mvc:view-controller path="/searchPC" view-name="searchPC"/>
+<mvc:view-controller path="/searchPC" view-name="searchPC"/> 
 
 
 <!-- 인터셉터 등록시작 -->
 <!-- 서블릿에서 일일이 세션값받아 왔지만 인터셉터를 활용하면 중복되는 코드가 줄어들게 된다. -->
+
+<bean id="loginCheckInterceptor" class="com.interceptor.LoginCheckInterceptor"></bean>
 <mvc:interceptors>
 	<mvc:interceptor>
-		<mvc:mapping path="/loginCheck/**"/><!-- /loginCheck/하위 주소 모두 선동작 -->
+		<mvc:mapping path="/loginCheck/**"/><!-- /loginCheck/**하위 주소 모두 선동작 -->
 		<ref bean="loginCheckInterceptor"/>
 	</mvc:interceptor>
 </mvc:interceptors>
-<bean id="loginCheckInterceptor" class="com.interceptor.LoginCheckInterceptor"></bean>
+
 <!-- 인터셉터 등록 끝 -->
 
 

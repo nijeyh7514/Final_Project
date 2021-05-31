@@ -28,14 +28,18 @@ public boolean preHandle(
 	if(session.getAttribute("login") == null) { //getAttribute역할: 로그인정보 조회 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();		
-		out.print("<script>alert('로그인 후 이용하실 수 있습니다');</script>");
-		response.sendRedirect("../loginForm");//servlet-context.xml //로그인 페이지로 이동한다		
+		out.println("<script language='javascript'>");
+		out.println("alert('로그인 후 이용가능합니다'); location.href='../loginForm';");
+		/*out.println("history.back;");*/
+		out.println("</script>");
+	/*	out.close();*/
+		/*response.sendRedirect("../loginForm");*///servlet-context.xml //로그인 페이지로 이동한다		
 	 System.out.println("여기는?");
 		return false;  //주의  //이후 작업 진행 금지
 	}else {
-		/*System.out.println("로그인정보확인");*/
-		/*response.sendRedirect("../mypage");//servlet-context.xml //마이페이지 회원정보페이지로 이동
-*/		return true; //주의 //로그인 정보가 있는 경우 이후 작업 계속 진행
+		System.out.println("로그인정보확인");
+		/*response.sendRedirect("../boardWrite");*///servlet-context.xml //마이페이지 회원정보페이지로 이동
+		return true; //주의 //로그인 정보가 있는 경우 이후 작업 계속 진행
 	}
 }
 

@@ -20,28 +20,35 @@ public class GoodsDAO {
 	@Autowired
 	SqlSessionTemplate template;
 	
-	//상품목록리스트
+	//상품목록보기
 	public List<GoodsDTO> goodsList(Map<String, String> map) {
 		List<GoodsDTO> list = template.selectList("GoodsMapper.goodsList", map);
 		return list;
 	}
 	
-	//상품자세히보기
+//*(상세페이지) - 상품코드
 	public GoodsDTO goodsRetrieve(String gCode) {
 		GoodsDTO dto = template.selectOne("GoodsMapper.goodsRetrieve", gCode);
 		return dto;
 	}
-
-	public void cartAdd(CartDTO cDTO) {
-		template.insert("CartMapper.cartAdd", cDTO);
-		
+	
+//*(상세페이지-바로구매) - 상세페이지상품 상품번호
+	public CartDTO buyNow(String gCode) {
+		CartDTO dto = template.selectOne("CartMapper.buyNow",gCode);
+		return dto;
 	}
 
+//*(장바구니추가) -  cDTO
+	public void cartAdd(CartDTO cDTO) {
+		template.insert("CartMapper.cartAdd", cDTO);		
+	}
+
+//*(장바구니목록) - 유저아이디	
 	public List<CartDTO> cartList(String userid) {
 		List<CartDTO>list = template.selectList("CartMapper.cartList",userid);
 		return list;
 	}
-
+//* 
 	public void cartDelete(int num) {
 		template.delete("CartMapper.cartDelete", num);
 		
@@ -57,6 +64,7 @@ public class GoodsDAO {
 		
 	}
 
+//*(주문확인페이지) - 장바구니상품 주문번호	
 	public CartDTO orderConfirmByNum(int num) {
 		CartDTO cDTO = template.selectOne("CartMapper.cartByNum", num);
 		return cDTO;
@@ -100,6 +108,7 @@ public class GoodsDAO {
 		List<GoodsDTO> list = template.selectList("GoodsMapper.searchPC",map);
 		return list;
 	}
+
 
 	
 	

@@ -29,6 +29,7 @@ public class BoardService {
 		BoardDAO.boardWrite(bDTO);
 		System.out.println("게시판글쓰기BoardService===>BoardDAO호출");
 	}
+	
 	public BoardDTO boardRetrieve(String num) {
 		BoardDTO boardDTO = BoardDAO.boardRetrieve(num);
 		return boardDTO;
