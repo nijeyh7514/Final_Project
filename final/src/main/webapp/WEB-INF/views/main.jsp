@@ -20,7 +20,6 @@
 <jsp:include page="common/menu.jsp" flush="false"></jsp:include>
 <jsp:include page="common/carousel.jsp" ></jsp:include>
 <hr>
-<jsp:include page="goods/goodsSearch.jsp" ></jsp:include>
 <jsp:include page="goods/goodsList.jsp" ></jsp:include>
 
 </body>

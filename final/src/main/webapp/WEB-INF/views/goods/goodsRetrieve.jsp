@@ -1,16 +1,19 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="css/menu.css">
 <html>
 <head>
- <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/menu.css">
+<!-- 상위/하위메뉴 CSS 적용(0)-->
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> 
-</head> 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+</head>
 
 <!--자바코드 -->
 <!-- '상품을 장바구니에 담았습니다' 알림창 구현-->
@@ -19,13 +22,13 @@
 	if(mesg!=null){
 	String temp="0";
 %>
-	<script>	
+<script>	
 		alert('<%=mesg%>상품을 장바구니에 담았습니다');
 	</script>
 <%
 	}
 	session.removeAttribute("mesg");
-%> 
+%>
 <!-- 자바코드 끝 -->
 
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
@@ -84,11 +87,12 @@ $("#cart").on("click",function(){
 }
 %> --%>
 
-<form name="goodRetrieveForm" method="GET" action="#"><!--# 화면이동안함 -->
-	    <input type="hidden" name="gImage" value="${goodsRetrieve.gImage}"> 
-		<input type="hidden" name="gCode" value="${goodsRetrieve.gCode}"> 
-		<input type="hidden" name="gName" value="${goodsRetrieve.gName}"> 
-		<input type="hidden" name="gPrice" value="${goodsRetrieve.gPrice}">
+<form name="goodRetrieveForm" method="GET" action="#">
+	<!--# 화면이동안함 -->
+	<input type="hidden" name="gImage" value="${goodsRetrieve.gImage}">
+	<input type="hidden" name="gCode" value="${goodsRetrieve.gCode}">
+	<input type="hidden" name="gName" value="${goodsRetrieve.gName}">
+	<input type="hidden" name="gPrice" value="${goodsRetrieve.gPrice}">
 	<div class="container">
 		<table cellspacing="0" cellpadding="0" style="margin-left: 250px;">
 			<tr>
@@ -117,7 +121,7 @@ $("#cart").on("click",function(){
 								src="images/items/${goodsRetrieve.gImage}.jpg" border="0"
 								align="center" width="300" /></td>
 
-							 <%-- <td class="td_title">제품코드</td>
+							<%-- <td class="td_title">제품코드</td>
 						<td class="td_default" colspan="2" style='padding-left: 30px'>
 						 ${goodsRetrieve.gCode} 
 						</td>--%>
@@ -141,41 +145,39 @@ $("#cart").on("click",function(){
 
 						<tr>
 							<td class="td_title">주문수량</td>
-							<td style="padding-left: 30px">
-							<input type="text" name="gAmount" value="1" id="gAmount"
-							
-								style="text-align: right; height: 18px"> 
-								<img src="images/up.PNG" id="up"> 
-								<img src="images/down.PNG" id="down"></td>
+							<td style="padding-left: 30px"><input type="text"
+								name="gAmount" value="1" id="gAmount"
+								style="text-align: right; height: 18px"> <img
+								src="images/up.PNG" id="up"> <img src="images/down.PNG"
+								id="down"></td>
 						</tr>
 					</table>
-					</div>
 				</td>
 			</tr>
 		</table>
-		</form>
-		<br> &nbsp;&nbsp;&nbsp;		
-		<!--(상품주문)확인페이지 이동-->
-		 <form  action="loginCheck/buyNow" method="GET" >
-		 <input type="hidden" name="gCode" value="${goodsRetrieve.gCode}"> 
+</form>
+<br> &nbsp;&nbsp;&nbsp;
+<!--(상품주문)확인페이지 이동-->
+<form action="loginCheck/buyNow" method="GET">
+	<input type="hidden" name="gCode" value="${goodsRetrieve.gCode}">
 	<%-- 	 <input type="hidden" name="gAmount" value="${goodsRetrieve.gAmount}">  --%>
-		
-		 <div style="margin-left: 270px;">
-		&nbsp;&nbsp;<button id="buy">바로구매</button>
-		</div> 
-	</form> 
-	
-		<div style="margin-left: 270px;">
-		<button id="cart">장바구니담기</button>
-		</div>
-	
-					
-			
+
+	<div style="margin-left: 270px;">
+		&nbsp;&nbsp;
+		<button id="buy">바로구매</button>
+	</div>
+</form>
+
+<div style="margin-left: 270px;">
+	<button id="cart">장바구니담기</button>
+</div>
+
+
+
 
 
 <br>
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  -->
 </body>
 </html>
-    

@@ -2,27 +2,27 @@ package com.dto;
 
 public class BoardDTO {
 
-	int num;
-	String author;
-	String title;
-	String content;
-	int readcnt;
-	String writeday;
-	int repRoot;
-	int repStep;
-	int repIndent;
+	int num; //게시글 순서번호(PK)
+	String author;//사용자아이디(작성자)()
+	String title;//게시글제목
+	String bcontent;// 게시글내용
+	int readcnt; //조회수
+	String writeday;//작성날짜
+	int repRoot;//??
+	int repStep;//??	
+	int repIndent;//??
 	
 	public BoardDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardDTO(int num, String author, String title, String content, int readcnt, String writeday, int repRoot,
+	public BoardDTO(int num, String author, String title, String bcontent, int readcnt, String writeday, int repRoot,
 			int repStep, int repIndent) {
 		super();
 		this.num = num;
 		this.author = author;
 		this.title = title;
-		this.content = content;
+		this.bcontent = bcontent;
 		this.readcnt = readcnt;
 		this.writeday = writeday;
 		this.repRoot = repRoot;
@@ -54,12 +54,12 @@ public class BoardDTO {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getBcontent() {
+		return bcontent;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setBcontent(String bcontent) {
+		this.bcontent = bcontent;
 	}
 
 	public int getReadcnt() {
@@ -104,7 +104,7 @@ public class BoardDTO {
 
 	@Override
 	public String toString() {
-		return "BoardDTO [num=" + num + ", author=" + author + ", title=" + title + ", content=" + content
+		return "BoardDTO [num=" + num + ", author=" + author + ", title=" + title + ", bcontent=" + bcontent
 				+ ", readcnt=" + readcnt + ", writeday=" + writeday + ", repRoot=" + repRoot + ", repStep=" + repStep
 				+ ", repIndent=" + repIndent + "]";
 	}

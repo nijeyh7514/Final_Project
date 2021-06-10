@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="GoodsMapper">
 
-	<!--상품목록보기  - 카테고리 --> <!-- gCategory-상위카테고리 /gUCategory-하위카테고리 -->
+<!--상품목록보기  - 카테고리 --> <!-- gCategory-상위카테고리 /gUCategory-하위카테고리 -->
 	<select  id="goodsList" parameterType="hashmap" resultType="GoodsDTO">
 		select gCode,gCategory,gName,gContent,gPrice,gImage
 		from goods
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</choose>
 	</select>
 
-	<!--상세페이지 상품보이기 - 상품코드 -->
+<!--상세페이지 상품보이기 - 상품코드 -->
 	<select id="goodsRetrieve" parameterType="string" resultType="GoodsDTO">
 		select gCode,gCategory,gName,gContent,gPrice,gImage 
 		from goods 
@@ -25,43 +25,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		gCode= #{gCode}
 	</select>
 
-  
-
-	<!--상품 검색(상품명, 상품설명) -->
-	<select parameterType="hashmap" resultType="int" id="totalCount">
+<!--장바구니 상품 총금액?? -->
+	<select parameterType="hashmap" resultType="int" 
+		id="totalCount">
 		select count(*) from goods
-
 		<where>
-
 			<if test="searchName == 'gName'">upper(gName) like upper('%'||#{searchValue}||'%') </if>
-
 			<if test="searchName == 'gContent'">upper(gContent) like upper('%'||#{searchValue}||'%') </if>
-
 		</where>
 		order by gCode desc
 	</select>
 
-	<!-- 상품명, 상품내용으로 검색 -->
-
+<!-- 상품명, 상품내용으로 검색 -->
 	<select parameterType="hashmap" resultType="GoodsDTO"
 		id="search">
 		select gCode, gCategory, gName, gContent, gPrice, gImage 
 		from goods
-
 		<where>
-
 			<if test="searchName == 'gName'">upper(gName) like upper('%'||#{searchValue}||'%') </if>
-
 			<if test="searchName == 'gContent'">upper(gContent) like upper('%'||#{searchValue}||'%') </if>
-
 		</where>
 		order by gCode desc
 	</select>
-
-	<!-- 카테고리 선택하고 원하는 가격 상품 검색 -->
-
+	
+<!-- 카테고리 선택하고 원하는 가격 상품 검색 -->
 	<select parameterType="hashmap" resultType="GoodsDTO"
-		id="searchPC">
+		id="goodsPriceSearch">
 		select gCode, gCategory, gName, gContent, gPrice, gImage 
 		from goods
 		where

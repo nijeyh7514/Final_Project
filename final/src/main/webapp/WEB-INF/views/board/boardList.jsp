@@ -1,10 +1,10 @@
-<%@page import="com.dto.BoardDTO"%>
+
+<%-- <%@ page isELIgnored="false" %> --%><!-- 이거추가 -->
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +12,9 @@
 <title>boardList</title>
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <script>
-
+//없음
 </script>
+
 <style type="text/css">
 .line1{border-top:2px solid purple;
 	border-bottom:1px solid black;}
@@ -30,40 +31,27 @@
 <br>
 <h1 class="text-left">고객센터</h1>
 <br>
-<br>
-
-<table width="100%">
-<!-- <table class="table text-center"> -->
-   
+<br><table width="100%">
    <tr class="line1" align="center" height="30">
-      <td>번호</td>
-      <td>제목</td>
-      <td>작성자</td>
-      <td>작성일</td>
-      <td>조회</td>      
-      </tr>      
-   <tbody>
-     
-   <!-- 게시판 글 목록 출력은 어떻게 되는거지? -->  
-<c:forEach var = "boardList" items="${boardList}"><!--  -->
-<!--
-var:사용할 변수명 
-items은 Collecion객체이다(List,ArrayList,Map등 )  -->
-   
-   <tr align="center" height="30">      
-      <td>${boardList.num}</td>
-      <td><a href=boardRetrieve?num=${boardList.num}>${boardList.title}</a></td>
-      <td>${boardList.author}</td>
-      <td>${boardList.writeday}</td>
-      <td>${boardList.readcnt}</td>
-   </tr>
-   
-</c:forEach>
-   </tbody>
-   
-</table>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>작성일</th>
+      <th>조회</th>      
+      </tr>
+			<c:forEach var="boardList" items="${boardList}">
+				<tr align="center" height="30">
+					<th>${boardList.num}</th>
+					<th><a href="BoardRetrieve?num=${boardList.num}">${boardList.title}</a></th>
+					<th>${boardList.author}</th>
+					<th>${boardList.writeday}</th>
+					<th>${boardList.readcnt}</th>
+				</tr>
+			</c:forEach>
+		</table>
 
-<form action="boardList"><!--  -->
+<!-- 제목또는 작성자 게시글 검색기능-->
+<form action="BoardList"><!--BoardController 서블릿이동  -->
          <select name="searchName">
             <option value="title">제목</option>
             <option value="author">작성자</option>
@@ -72,14 +60,15 @@ items은 Collecion객체이다(List,ArrayList,Map등 )  -->
             <input type="submit" value="검색">
          </form>
          
+ <!--로그인시 글쓰기기능 구현가능 -->        
 	<c:if test="${empty login}">
-	<div class="header">		
+	<div class="header">
+<a href="loginCheck/loginForm" class="btn btn-outline-info float-right">글쓰기</a>
 </div>
 </c:if>
-
    <c:if test="${!empty login}">
 	<div class="header">
-	<a href="/loginCheck/boardWrite" class="btn btn-outline-info float-right">글쓰기</a>
+	<a href="boardWrite" class="btn btn-outline-info float-right">글쓰기</a>
 	</div>
 	</c:if>
 

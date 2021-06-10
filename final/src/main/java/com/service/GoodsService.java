@@ -49,11 +49,19 @@ public class GoodsService {
 		List<CartDTO>list = dao.cartList(userid);
 		return list;
 	}
-	
-//*(장바구니 상품삭제) - 상품번호
+//*(장바구니 수량변경) - map	
+	public void cartUpdate(Map<String, String> map) {
+		dao.cartUpdate(map);
+	}
+//*(장바구니 상품개별삭제) - 상품번호
 	public void cartDelete(int num) {
 		dao.cartDelete(num);		
+		System.out.println("cartDelete/Service==="+num);
 	}
+//*(장바구니 상품선택삭제)	- list
+	/*public void cartDelcheck(ArrayList<String> list) {
+		dao.cartDelcheck(list);		
+	}*/
 	
 //*(장바구니 모든상품삭제) - list
 	public void delAllCart(ArrayList<String> list) {
@@ -102,7 +110,7 @@ public class GoodsService {
 	}
 
 	//(상품가격검색) - map
-	public List<GoodsDTO> searchPC(String searchPrice1, String searchPrice2, String gCategory1, String gCategory2,
+	/*public List<GoodsDTO> goodsPriceSearch(String searchPrice1, String searchPrice2, String gCategory1, String gCategory2,
 	    String gCategory3, String gCategory4) {
 	    HashMap<String, String> map = new HashMap<>();
 		map.put("searchPrice1", searchPrice1);
@@ -117,8 +125,11 @@ public class GoodsService {
 	}
 
 	public List<GoodsDTO> searchPC(HashMap<String, String> map) {
-		List<GoodsDTO> list =dao.searchPC(map);
+		List<GoodsDTO> list =dao.goodsPriceSearch(map);
 		return list;
-	}
+	}*/
+
 	
-	}
+
+}
+

@@ -1,4 +1,6 @@
-
+<%@page import="com.sun.scenario.effect.Merge"%>
+<%@page import="com.dto.MemberDTO"%>
+<%@page import="com.dto.CartDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,27 +17,34 @@
 </head>
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <script>
-
-	$(function(){
+//제이쿼리문 시작
+//보내는 주문자(order)와 받는 주문자(m)정보가 동일할 경우 체크시 같은 값 들어감
+//체크했을시 $(#orderName)안에 #musername값이 들어간다. 
+		$(function(){
 		$("#same").on("click",function(){
-			if(this.checked){
-				$("#orderName").val($("#mname").val());
+			if(this.checked){			
+				$("#orderName").val($("#musername").val());
+				$("#phone").val($("#mphone").val());				
 				$("#sample4_postcode").val($("#mpost").val());
-				$("#sample4_roadAddress").val($("#maddress1").val());
-				$("#sample4_jibunAddress").val($("#maddress2").val());
-				$("#phone").val($("#mphone").val());
+				$("#sample4_roadAddress").val($("#maddr1").val());
+				$("#sample4_jibunAddress").val($("#maddr2").val());
 			}else{
 				$("#orderName").val("");
+				$("#phone").val("");
 				$("#sample4_postcode").val("");
 				$("#sample4_roadAddress").val("");
-				$("#sample4_jibunAddress").val("");
-				$("#phone").val("");
+				$("#sample4_jibunAddress").val("");				
 			}
 		});
 	});
+	
+	
+	
 </script>	
+
 <body>
 <div class="container">
+<!--상품주문서 -->
 <FORM name="myForm" method="GET" action="loginCheck/orderAllDone">
 	<table width="80%" cellspacing="0" cellpadding="0" style="margin-left: 140px;">
 
@@ -43,9 +52,11 @@
 			<td height="30">
 		</tr>
 
-		<tr>
-			<td><b>주문상품 확인</b></td>
-		</tr>
+	<tr>
+		<td colspan="5" class="td_default"align='center'>&nbsp;&nbsp;&nbsp; 
+		<font size="6"><strong>주문서</strong></font> &nbsp;
+		</td>
+	</tr>
 
 		<tr>
 			<td height="15">
@@ -63,12 +74,13 @@
 
 		<tr>
 			<td>
+			<!-- 테이블 시작 -->
 				<table width="100%" cellspacing="0" cellpadding="0">
 					<tr>
-						<td class="td_default" align="center"><strong>주문번호</strong></td>
-						<td class="td_default" align="center" colspan="2"><strong>상품정보</strong></td>
+						<td class="td_default" align='left'><b><font size="5">주문상품</font></b></td> 
+						<!-- <td class="td_default" align="center" colspan="2"><strong>상품정보</strong></td>
 						<td class="td_default" align="center"><strong>판매가</strong></td>
-						<td class="td_default" align="center" colspan="2"><strong>수량</strong></td>
+						<td class="td_default" align="center" colspan="2"><strong>수량</strong></td> -->
 
 					</tr>
 
@@ -77,10 +89,10 @@
 							<hr size="1" color="CCCCCC">
 						</td>
 					</tr>
-<!--  변수 선언 -->					
+				
 					
 
-<!-- 누적 -->
+<!-- 누적 반복문--><!-- 변수 선언 -->	
 <c:set var="totalSum" value="0"/>
 <input type="hidden" name="userid" value="${login.userid}" >
 
@@ -88,198 +100,202 @@
   <c:set var="totalSum" 
   value="${totalSum + xxx.gPrice*xxx.gAmount }"/>
 
-
-<input type="hidden" name="num" value="${xxx.num}" >
+ <input type="hidden" name="num" value="${xxx.num}" >
 <input type="hidden" name="gCode" value="${xxx.gCode}" >
 <input type="hidden" name="gImage" value="${xxx.gImage}" >
 <input type="hidden" name="gName" value="${xxx.gName}" >
 <input type="hidden" name="gPrice" value="${xxx.gPrice}" >
 <input type="hidden" name="gAmount" value="${xxx.gAmount}" >
 
-					<tr>
-						<td class="td_default" width="80">${xxx.num}</td>
-						<td class="td_default" width="80"><img
-							src="images/items/${xxx.gImage}.jpg" border="0" align="center"
-							width="80" /></td>
-						<td class="td_default" width="300" style='padding-left: 30px'>
-						${xxx.gName}
-							<br> </td>
-						<td class="td_default" align="center" width="110">
-						${xxx.gPrice}
-						
-						</td>
-						<td class="td_default" align="center" width="90">${xxx.gAmount}
-						
-						</td>
-						
-					</tr>
+								<tr>
+									<%-- <td class="td_default" width="80">${xxx.num}</td> --%>
+									<td class="td_default" width="80"><img
+										src="images/items/${xxx.gImage}.jpg" border="0" align="center"
+										width="80" /></td>
+									<td class="td_default" width="300" style='padding-left: 30px'>
+										${xxx.gName} <br>
+									</td>
+									<td class="td_default" align="center" width="110">
+										${xxx.gPrice}원</td>
+									<td class="td_default" align="center" width="90">${xxx.gAmount}개</tr>
+					<td colspan="10">
+			<hr size="1" color="CCCCCC">				   
+</td> 			
 					
-</c:forEach>    
-
-<td colspan="10">
-<hr size="1" color="CCCCCC">
-</td>    
+</c:forEach> <!-- 주문상품 반복 끝-->   
 
 					<tr>
-					
 						<td height="30"></td>
-						<td class="td_default" align="right">총 결제 금액 :</td>
-						<td class="td_default" align='right'>
-						${totalSum}</td>
+						<td class="td_default" align="right"></td><!-- 띄어쓰기 -->
+						<td class="td_default" align='right'><font size="4"><b>최종 결제 금액 : ${totalSum} 원</b></font></td>
 					</tr>
-				</table>
-		<tr>
-			<td>
-				<hr size="1" color="CCCCCC">
-			</td>
-		</tr>
+			</table><!--주문상품 테이블 끝-->
+	
 
 		<!--  고객 정보 시작-->
 		<tr>
 		<td height="30">
-	
 		</tr>
 
-	<tr>
-		<td><b>고객 정보</b></td>
-	</tr>
+				<tr>
+					<td><b><font size="5">주문자 정보</font></b></td>														
+				</tr>
 
-	<tr>
+		<tr>
 		<td height="15">
-	
 		</tr>
-
-
+<!-- -------------------------------------------------------------------------------- -->
 	<tr>
 		<td>
+		<!-- 테이블시작-->
+		<!--MemberDTO 회원정보 -->	
 			<table width="100%" cellspacing="0" cellpadding="0" border="1"
 					style="border-collapse:collapse" bordercolor="#CCCCCC">
+			<!-- ------------------------------------------------------------- -->
 				<tr>
-					<td width="125" height="35" class="td_default">
+					 <td width="125" height="50" class="td_default"> 
 						
-						이 름
-					</td>
+						<font size="4"><strong> 보내는 분</strong></font>
+				<!-- -------------------------------------------------- -->
+					
 					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mname" size="20"
+						<input class="input_default" id="musername" name="musername" size="20"
 							maxlength="20" value="${mDTO.username}"></input>
 					</td>
 				</tr>
+				<!-- -------------------------------------------------------------- -->
 				<tr>
-					<td height="35" class="td_default">
-						
-						우편번호
+					<td height="50" class="td_default">
+					
+						<font size="4"><strong>휴대폰</strong></font>
 					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mpost" size="6"
-							maxlength="6" value="${mDTO.post}" readonly>
-					</td>
-				</tr>
-				<tr>
-					<td height="35" class="td_default">
-						
-						주 소
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="maddress1" size="35"
-							maxlength="200" value="${mDTO.addr1}" readonly></input><br>
-						<input class="input_default" type="text" id="maddress2" size="35"
-							maxlength="200" value="${mDTO.addr2}" readonly></input>
-					</td>
-				</tr>
+					
+					<td height="50" class="td_default">
+						<input class="input_default" type="text" id="mphone" name="mphone1" size="20"
+							maxlength="15" value="${mDTO.phone1}-${mDTO.phone2}-${mDTO.phone3}"></input>		
 				
+				</tr>				
+				<!-- ----------------------------------------------------------------- -->
 				<tr>
-					<td height="35" class="td_default">
-						휴대전화
+					<td height="50 class="td_default">
+						
+							<font size="4"><strong>이메일</strong></font>
 					</td>
 					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mphone" size="15"
-							maxlength="15" value="${mDTO.phone1}${mDTO.phone2}${mDTO.phone3}"></input>
-						
+						<input class="input_default" type="text" id="memail" size="15"
+							maxlength="6" value="${mDTO.email1}" readonly>@			
+						<input class="input_default" type="text" id="memail" size="13"
+							maxlength="6" value="${mDTO.email2}" readonly>
+				       </table>
 					</td>
 				</tr>
-			</table>							
+	<!--주문자 정보테이블 끝 ------------------------------------------------------------>
+<!--배송지 정보 -------------------------------------------------------------------------- -->				
+			<tr>
+		<td height="30">
+		</tr>
+				<tr>
+					<td><b><font size="5">배송정보</font></b></td>														
+				</tr>
+		<tr>
+		<td height="15">
+		</tr>
+		
+		<tr>
+		   <td>			
+		<table width="100%" cellspacing="0" cellpadding="0" border="1"
+					style="border-collapse:collapse" bordercolor="#CCCCCC">
+					
+				<tr>
+					<td width="125" height="50" class="td_default"> 
+										
+					<font size="4"><strong> 기본 배송지</strong></font>					
+					</td>
+					
+					 <td height="50" class="td_default">	
+					 				
+						<input class="input_default" type="text" id="mpost" size="40"
+							maxlength="20" value="${mDTO.post}"readonly><br>
+							
+						<input class="input_default" type="text" id="maddr1" size="40"
+							maxlength="200" value="${mDTO.addr1}" readonly><br>
+							
+						<input class="input_default" type="text" id="maddr2" size="40"
+							maxlength="200" value="${mDTO.addr2}" readonly></input>	
+						</td>
+					</tr>							
+			</table><!--기본 배송지 테이블 끝 -->							
 		</td>
 	</tr>
-<!--  고객 정보 끝-->
-	<tr>
-		<td height="30">
-	
-		</tr>
 
+<!-- 주문자정보 끝  -->
+									
 	<tr> 
 		<td class="td_default">
-			 <input type="checkbox" name="same" id="same"> 배송지가 동일할 경우 선택하세요.
+		<br>
+			 <input type="checkbox" name="same" id="same"> 주문자 정보와 동일
+		<br>	 
 		</td>
-	</tr>
-<!--  배송지 정보 시작-->
-	<tr>
-		<td height="30">
-	
-		</tr>
-
-	<tr>
-		<td><b>배송지 정보</b></td>
-	</tr>
+	</tr> 	
 
 	<tr>
 		<td height="15">
-	
 		</tr>
-
-
+<!-- -------------------------------------------------------------------------------- -->
 	<tr>
 		<td>
+		<!-- 받으실 분 테이블시작-->
 			<table width="100%" cellspacing="0" cellpadding="0" border="1"
 					style="border-collapse:collapse" bordercolor="#CCCCCC">
+			<!-- ------------------------------------------------------------- -->
 				<tr>
-					<td width="125" height="35" class="td_default">
+					 <td width="125" height="50" class="td_default"> 
 						
-						이 름
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="orderName"
-							name="orderName" size="20" maxlength="20" value=""></input>
-					</td>
-				</tr>
-				<tr>
-					<td height="35" class="td_default">
-						
-						우편번호
-					</td>
-					<td height="35" class="td_default">
-<!-- 다음주소 시작-->
-	<input type="text" name="post" id="sample4_postcode" placeholder="우편번호">
-<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소"><br>
-<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
-<span id="guide" style="color:#999"></span>
-<br>
-<!-- 다음주소 끝 -->
-					</td>
-				</tr>
-				
-				<tr>
-					<td height="35" class="td_default">
-						
-						휴대전화
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="phone"
-							name="phone" size="15" maxlength="15" value=""></input>
+						<font size="4"><strong> 받으실 분 정보</strong></font>
+				<!-- -------------------------------------------------- -->
 					
+					<td height="35" class="td_default">
+						<input class="input_default" type="text" id="orderName" name="orderName" value="" 
+						size="20" maxlength="20" placeholder="이름을 입력해주세요"></input>
 					</td>
 				</tr>
-			</table>							
+				<!-- -------------------------------------------------------------- -->
+				<tr>
+					<td height="50" class="td_default">
+					
+						<font size="4"><strong>휴대폰</strong></font>
+					</td>
+					<td height="50" class="td_default">
+						<input class="input_default" type="text" id="phone" name="phone" value="" 
+							size="20" maxlength="15"  placeholder="숫자만 입력해주세요"></input>
+							<tr>
+					<td width="125" height="50" class="td_default"> 
+										
+					<font size="4"><strong> 배송지</strong></font>					
+					</td>
+					
+					 <td height="50" class="td_default">
+<!-- Daum 제공 주소 -->					 
+	<input type="text" name="post" id="sample4_postcode" size="40" placeholder="우편번호">
+	<input type="button" onclick="sample4_execDaumPostcode()"size="40" value="우편번호 찾기"><br>
+	<input type="text" name="addr1" id="sample4_roadAddress" size="40" placeholder="도로명주소"><br>
+	<input type="text" name="addr2" id="sample4_jibunAddress"size="40" placeholder="지번주소">
+	<span id="guide" style="color:#999">
+	</span>
+	<br>
+<!-- Daum 제공 주소 끝 -->
+					</td>						 	
+				</tr>				
+			</table><!--받으실분 정보 긑 -->							
 		</td>
 	</tr>
-<!--  배송지 정보 끝-->
+
 
 	<tr>
-		<td height="30">
-	
+		<td height="30">	
 		</tr>
 	<tr>
-		<td><b>결제수단</b></td>
+		<td><b><font size="5">결제수단</font></b></td>														
 	</tr>
 
 	<tr>

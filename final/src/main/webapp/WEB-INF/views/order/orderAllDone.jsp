@@ -19,7 +19,6 @@
 <body>   
 <div class="container">
 
-
 <c:set var="xxx" value="${oList}" />
 <c:set var="userid" value="${xxx[0].userid}" />
 <c:set var="orderName" value="${xxx[0].orderName}" />
@@ -36,13 +35,13 @@
 	</tr>
 
 	<tr>
-		<td><b>주문완료</b></td>
+		<td><b><font size="6">주문완료</font></b>
+		</td>
 	</tr>
 
 	<tr>
 		<td height="30">
 	</tr>
-
 	<tr>
 		<td align="center"><b>주문해주셔서 감사합니다.</b></td>
 	</tr>
@@ -61,7 +60,7 @@
 	</tr>
 
 	<tr>
-		<td class="td_default"><b>상품 및 배송정보</b>
+		<td class="td_default"><b><font size="5">상품 및 배송정보</font></b>
 		</td>
 	</tr>
 
@@ -121,7 +120,7 @@
 						<span  id = "price1">${xxx.gPrice}</span>원
 					</td>
 					<td height="35" class="td_default" align="center">
-						<span id = "num1">${xxx.gAmount}</span>EA
+						<span id = "num1">${xxx.gAmount}</span>개
 					</td>
 					<td height="35" class="td_default" align="center">
 						<span>${xxx.gPrice * xxx.gAmount}</span>원
@@ -138,7 +137,7 @@
 	</tr>
 
 	<tr>
-		<td class="td_default"><b>결제정보</b></td>
+	<td class="td_default"><b><font size="5">결제정보</font></b>
 	</tr>
 
 	<tr>
@@ -177,7 +176,7 @@
 
 	<tr>
 		<td class="td_default" align="center"><a class="a_default"
-			href="goodsList?gCategory=meat">main 페이지로 이동</a></td>
+			href="goodsList?gCategory=meat">계속 쇼핑하기</a></td>
 	</tr>
 
 	<tr>

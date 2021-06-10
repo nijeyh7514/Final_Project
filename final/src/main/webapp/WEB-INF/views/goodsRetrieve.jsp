@@ -18,6 +18,5 @@
 <jsp:include page="common/carousel.jsp" ></jsp:include>
 <hr>
 <jsp:include page="goods/goodsRetrieve.jsp" ></jsp:include>
-
 </body>
 </html>

@@ -19,7 +19,7 @@ public class MemberController {
 	@Autowired
 	MemberSerivce service;
 	
-	//회원가입기능
+	//*(회원가입) 회원등록기능
 	@RequestMapping(value = "/memberAdd")
 	public String memberAdd(MemberDTO m, Model model) {
 		System.out.println("회원가입 == Controller DTO 파라미터값 확인===="+m);

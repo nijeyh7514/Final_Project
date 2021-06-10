@@ -38,20 +38,20 @@ public class GoodsController {
 	
 	//상품목록기능
 	@RequestMapping(value = "/goodsList")
-	public ModelAndView goodsList(@RequestParam("gCategory") String gCategory, @RequestParam(required = false, defaultValue = "all") String gUCategory) {
-		System.out.println("goodsList/gCategory==="+gCategory);
-		System.out.println("goodsList/gUCategory==="+gUCategory);
-		if(gCategory==null) {
+	public ModelAndView goodsList(@RequestParam("gCategory") String gCategory,
+			@RequestParam(required = false, defaultValue = "all") String gUCategory) {
+		System.out.println("goodsList/gCategory===" + gCategory);
+		System.out.println("goodsList/gUCategory===" + gUCategory);
+		if (gCategory == null) {
 			gCategory = "meat";
-			
 		}
-		if(gUCategory==null) {
+		if (gUCategory == null) {
 			gUCategory = "all";
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("gCategory", gCategory);
 		map.put("gUCategory", gUCategory);
-		List<GoodsDTO>list = service.goodsList(map);
+		List<GoodsDTO> list = service.goodsList(map);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("goodsList", list);
 		mav.setViewName("main");
@@ -88,18 +88,34 @@ public class GoodsController {
 		return "redirect:../cartList"; //servlet-context 등록
 	}
 	
-	//*(장바구니)상품삭제
+	//*(장바구니)수량변경
+	@RequestMapping(value = "/loginCheck/cartUpdate")
+	@ResponseBody
+	public void cartUpdate(@RequestParam Map<String, String>map) { //
+		System.out.println(map);
+		service.cartUpdate(map);
+	}
+		
+	//*(장바구니)개별상품삭제//스프링에서 비동기 처리를 할 경우에 @Responsebody나 @RequestBody를 사용
 	@RequestMapping(value = "/loginCheck/cartDelete")
-	@ResponseBody //스프링에서 비동기 처리를 할 경우에 @Responsebody나 @RequestBody를 사용
+	@ResponseBody 
 	public void cartDelete(@RequestParam("num") int num) {
-		System.out.println("cartDelete_Controller==="+num);
+		System.out.println("cartDelete/Controller==="+num);
 		service.cartDelete(num);
 	}
 	
-	//*(장바구니)상품전체삭제하기
+	//*(장바구니)상품선택 삭제
+	/*@RequestMapping(value = "/loginCheck/cartDelete")
+	@ResponseBody //스프링에서 비동기 처리를 할 경우에 @Responsebody나 @RequestBody를 사용
+	public void cartDelCheck(@RequestParam("check") ArrayList<String>list) {
+		System.out.println("cartDelCheck/Controller==="+list);
+		service.cartDelcheck(list);
+	}*/
+	
+	//*(장바구니)모든상품 삭제
 	@RequestMapping(value = "/loginCheck/delAllCart")
 	public String delAllCart(@RequestParam("check") ArrayList<String>list) {
-		service.delAllCart(list);
+		service.delAllCart(list);		
 		return "redirect:../cartList";		
 	}
 	
@@ -153,12 +169,13 @@ public class GoodsController {
 		List<CartDTO> cList = service.orderAllConfirm(list);
 		xxx.addFlashAttribute("cList", cList);
 		xxx.addFlashAttribute("mDTO", mDTO);
-		return "redirect:../orderAllConfirm";
+		return "redirect:../orderAllConfirm";//
 	}
 	  
 	//*(전체주문)완료페이지
 	@RequestMapping(value = "/loginCheck/orderAllDone")
-	public String orderAllDone(OrderDTO oDTO ,@RequestParam("num")String [] orderNums, HttpSession session, RedirectAttributes xxx, HttpServletRequest request) {
+	public String orderAllDone(OrderDTO oDTO ,@RequestParam("num")String [] orderNums, 
+			HttpSession session, RedirectAttributes xxx, HttpServletRequest request) {
 	
 		MemberDTO mDTO = (MemberDTO)session.getAttribute("login");
 		String [] nums = request.getParameterValues("num");
@@ -197,32 +214,38 @@ public class GoodsController {
 			xxx.addFlashAttribute("oList", oList);
 
 			System.out.println(oList);
-			return "redirect:../orderAllDone ";
+			return "redirect:../orderAllDone"; 
 	}
 	
-	//상품검색기능
-	@RequestMapping(value = "/searchName")
+	//*(상품검색) 상품명/상품설명에 해당되는 단어 등의 검색 기능
+	@RequestMapping(value = "/goodsSearch")
 	public String goodsSearch(HttpSession session, HttpServletRequest request) {
 		String curPage = request.getParameter("curPage");
-		if(curPage==null) curPage= "1";
-		
+		String searchValue = null; //입력값
 		String searchName = request.getParameter("searchName");//상품명 또는 상품내용
-		String searchValue = request.getParameter("searchValue"); //입력값
-		System.out.println("servlet에서==="+searchName+"\t"+searchValue+"\t"+curPage);
+		
+		if(curPage==null) {
+			curPage= "1";//선텍페이지가 없으면 1페이지부터 시작
+			searchValue = request.getParameter("searchValue"); //입력값
+		} else {
+			searchValue = (String)session.getAttribute("searchValue");
+		}
+		
 		PageDTO pDTO = service.goodsSearchList(searchName, searchValue, Integer.parseInt(curPage));
-		System.out.println("goodsSearchList/Controller===="+pDTO);
 		request.setAttribute("pDTO", pDTO);
 		request.setAttribute("searchName", searchName);
 		request.setAttribute("searchValue", searchValue);
+		
 //		xxx.addFlashAttribute("pDTO", pDTO);
 //		xxx.addFlashAttribute("test", "abcd");
 		
-		return "goodsSearchList"; //goodsSearchList.jsp
+		return "goodsSearchList"; 
 	}
+
 	
-	//카테코리별 가격 검색 기능
-	@RequestMapping(value = "/searchPrice") 
-	public String searchPC(HttpSession session, HttpServletRequest request) {
+	//(*상품검색) 카테고리(체크박스)선택/미선택 후 가격 검색 기능
+	/*@RequestMapping(value = "/goodsPriceSearch") 
+	public String goodsPriceSearch(HttpSession session, HttpServletRequest request) {
 		
 		String searchPrice1 = request.getParameter("searchPrice1");
 		String searchPrice2 = request.getParameter("searchPrice2");
@@ -245,8 +268,9 @@ public class GoodsController {
 		System.out.println(map);
 			
 		List<GoodsDTO>list = service.searchPC(map);
-	/*	PageDTO pDTO = service.searchPC(list, Integer.parseInt(curPage));*/
+		PageDTO pDTO = service.searchPC(list, Integer.parseInt(curPage));
 		request.setAttribute("priceCategory", list);
-		return "searchPC";
+		return "goodsPSList";////goodsPriceSearchList 상품가격검색목록.jsp
+}*/
 	}
-}
+

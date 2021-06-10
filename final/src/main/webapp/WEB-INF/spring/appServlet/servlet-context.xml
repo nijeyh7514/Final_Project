@@ -25,13 +25,13 @@
 <mvc:view-controller path="/orderAllDone" view-name="orderAllDone"/>
 <mvc:view-controller path="/boardList" view-name="boardList"/>
 <mvc:view-controller path="/boardRetrieve" view-name="boardRetrieve"/>
-<mvc:view-controller path="loginCheck/boardWrite" view-name="boardWrite"/>
+<mvc:view-controller path="/boardWrite" view-name="boardWrite"/>
 <mvc:view-controller path="/boardReply" view-name="boardReply"/>
 <mvc:view-controller path="/goodsList" view-name="goodsList"/>
 <mvc:view-controller path="/goodsRetrieve" view-name="goodsRetrieve"/>
-<mvc:view-controller path="/goodsSearch" view-name="goodsSearch"/>
+<mvc:view-controller path="/goodsSearch" view-name="goodsSearch"/><!-- 필요없음 menu.jsp에 넣음 -->
 <mvc:view-controller path="/goodsSearchList" view-name="goodsSearchList"/>
-<mvc:view-controller path="/searchPC" view-name="searchPC"/> 
+<mvc:view-controller path="/searchPC" view-name="goodsPSList"/> 
 
 
 <!-- 인터셉터 등록시작 -->

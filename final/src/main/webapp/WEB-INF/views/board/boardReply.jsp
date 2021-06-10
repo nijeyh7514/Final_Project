@@ -4,8 +4,30 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
- <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+ <!DOCTYPE html> 
+<html>
+<meta charset="UTF-8"> 
+<head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<title></title>
+</head>
+
+<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+//*(게시글) 댓글삭제
+/* $(function(){
+   $(".delBtn").on("click", function() {
+      var num = $(this).attr("data-xxx");
+      location.href = "";
+   });
+}); */
+
+</script>
 <%
 MemberDTO dto = (MemberDTO)session.getAttribute("login");
 String username=null;
@@ -13,30 +35,11 @@ String username=null;
       username = dto.getUsername();
    }
 %>
-<script type="text/javascript">
 
-$(function(){
-   $(".delBtn").on("click", function() {
-      var num = $(this).attr("data-xxx");
-      location.href = "CartDelServlet?num=" + num;
-   });
-});
-</script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
 <body>
 <div class="container">
-   <form action="BoardReplyServlet" method="post">
-
-      <!-- 답변글 필요 -->
+   <form action="BoardReply" method="post">
+      <!-- 답변글 작성란 -->
       <input type="hidden" name="num" value="${boardRetrieve.num}">
       <input type="hidden" name="author" value="<%=username %>">
       <table>
@@ -61,52 +64,31 @@ $(function(){
             </td>   
             </tr>
       </table>
-      </form><br>
-      <h4>댓글목록</h4><br>
+      </form>
+      <br>
+      <h4>댓글목록</h4><br>  
    <table width="50%" border="0">
-   <tr>
+    <tr>
       <th>작성자</th>
       <th>덧글내용</th>
       <th>작성일</th>
    </tr>
-   
-<%
-List<BoardReplyDTO> replyList = (ArrayList<BoardReplyDTO>)request.getAttribute("replyList");
-for(int i=0; i<replyList.size() ; i++) {
-   String author = replyList.get(i).getAuthor();
-   String content = replyList.get(i).getContent();
-   String writeday = replyList.get(i).getWriteday();
-   %>
-   <tr class="reply" align="center">
-      <td><%=author %></td>
-      <td><%=content %>}</td>
-      <td><%=writeday %></td>   
-   <%
-   if( username.equals(replyList.get(i).getAuthor()) ) {
-      %>
-            <td><input type="button" value="삭제" id="xx${reply}" 
-             class="delBtn" data-xxx="${reply.contentNum }"></td>
-      <td><input type="button" value="수정" class="updateBtn" ></td>
-      </tr>   
-      <%
-   }
-}
-%>
-
-<%-- <c:forEach var = "reply" items="${replyList}">
-   <tr class="reply" align="center">
+      <c:forEach var = "reply" items="${replyList}">
+      
+ <tr class="reply" align="center">
       <td>${reply.author}</td>
       <td>${reply.content}</td>
       <td>${reply.writeday}</td>   
       <td><input type="button" value="삭제" id="xx${reply}" 
              class="delBtn" data-xxx="${reply.contentNum }"></td>
       <td><input type="button" value="수정" class="updateBtn" ></td>
+</tr>
+</c:forEach> 
+    </table>          
 
-   </tr>   =
-   
-</c:forEach> --%>
 
-</table>
+
+
 <br>
 </div>
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->

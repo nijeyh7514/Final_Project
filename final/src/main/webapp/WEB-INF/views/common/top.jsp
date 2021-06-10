@@ -8,7 +8,7 @@
 <div class="header">
 	<a href="memberForm">회원가입</a>&nbsp;|
 	<a href="loginForm">로그인</a>&nbsp;|
-	<a href="boardListT">고객센터</a>&nbsp;
+	<a href="BoardList">고객센터</a>&nbsp;
 </div>
 </c:if>
 <c:if test="${!empty login}">
@@ -17,7 +17,7 @@
 	<a href="loginCheck/logout">로그아웃</a>&nbsp;|
 	<a href="loginCheck/mypage">마이페이지</a>&nbsp;|
 	<a href="loginCheck/cartList">장바구니</a>&nbsp;|
-	<a href="loginCheck/boardListT">고객센터</a>&nbsp;
+	<a href="BoardList">고객센터</a>&nbsp;
 	
 	<!-- jsp주소아님/
 	Controller RequestMapping=(value="/boardListT") -->

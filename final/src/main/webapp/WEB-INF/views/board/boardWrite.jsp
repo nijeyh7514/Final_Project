@@ -1,3 +1,4 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,15 +9,23 @@
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <script>
 
-	//게시판목록으로 돌아가기
+	//글쓰기페이지에서 목록클릭시 게시판목록으로 돌아가기
 	$(function(){
 		$("#btnList").on('click',function(e){
 			e.preventDefault();
-			location.href="boardListT";
+			location.href="BoardList";//BoardController
 		});
 	});
 	
 </script>
+<%
+MemberDTO dto = (MemberDTO)session.getAttribute("login");
+String username=null;
+   if(dto!=null){
+      username = dto.getUsername();
+   }
+%>
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -25,16 +34,17 @@
 <body>
 <div class="container">
 <h1>게시판글쓰기</h1>
-<form action="boardWrite" method="get">
+<form action="BoardWrite" method="get">
 제목:<input type="text" name="title" class="form-control">
 <br>
-작성자:<input type="text" name="author"  class="form-control">
+작성자:<input type="text" name="author" value="<%=username %>" class="form-control">
 <br>
-내용:<textarea rows="10" cols="10" name="content"  class="form-control">
+내용:<textarea rows="10" cols="10" name="bcontent"  class="form-control">
 </textarea>
 <input type="submit" value="글올리기" class="btn btn-sm btn-primary">
 <input type="button" class="btn btn-sm btn-primary" id="btnList" value="목록">
 </form>
+
 </div>
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

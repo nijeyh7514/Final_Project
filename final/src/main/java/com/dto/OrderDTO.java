@@ -11,7 +11,7 @@ public class OrderDTO {
 	private int gPrice;
 	private int gAmount;
 	private String gImage;
-	private String orderName;
+	private String orderName;//주문자이름
 	private String post;
 	private String addr1;
 	private String addr2;
